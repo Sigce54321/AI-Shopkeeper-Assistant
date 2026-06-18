@@ -1,10 +1,5 @@
-from sqlalchemy import Column
-from sqlalchemy import Integer
-from sqlalchemy import Float
-from sqlalchemy import DateTime
-from sqlalchemy import String
-from sqlalchemy import ForeignKey
-
+from sqlalchemy import Column, Integer, Float, String, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
 from datetime import datetime
 
 from app.database.connection import Base
@@ -15,26 +10,41 @@ class Sale(Base):
 
     id = Column(Integer, primary_key=True, index=True)
 
+    # 👤 Customer link
     customer_id = Column(
         Integer,
-        ForeignKey("customers.id")
+        ForeignKey("customers.id"),
+        nullable=False
     )
 
+    # 🧾 Invoice number
     bill_number = Column(
         String,
         unique=True,
         nullable=False
     )
 
-    date = Column(
+    # 📅 Timestamp
+    created_at = Column(
         DateTime,
         default=datetime.utcnow
     )
 
-    total_amount = Column(Float)
+    # 💰 Billing amount
+    total_amount = Column(
+        Float,
+        default=0.0
+    )
 
-    payment_method = Column(String)
+    # 💳 Payment details
+    payment_method = Column(String, nullable=True)
+    
+    payment_status = Column(
+        String,
+        default="PENDING"
+    )
 
-    payment_status = Column(String)
+    transaction_id = Column(String, nullable=True)
 
-    transaction_id = Column(String)
+    # 🔗 Relationship (important for joins later)
+    customer = relationship("Customer")

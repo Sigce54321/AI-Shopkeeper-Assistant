@@ -1,8 +1,10 @@
+from pathlib import Path
 from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import declarative_base, sessionmaker
 
-DATABASE_URL = "sqlite:///../database/shop.db"
+BASE_DIR = Path(__file__).resolve().parents[3]
+
+DATABASE_URL = f"sqlite:///{BASE_DIR}/database/shop.db"
 
 engine = create_engine(
     DATABASE_URL,
@@ -16,3 +18,11 @@ SessionLocal = sessionmaker(
 )
 
 Base = declarative_base()
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

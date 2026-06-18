@@ -1,3 +1,6 @@
+from app.api.customer import router as customer_router
+from app.api.sale import router as sale_router
+from app.api.sale_item import router as sale_item_router
 from fastapi import FastAPI
 
 from app.database.connection import Base
@@ -18,3 +21,8 @@ def home():
     return {
         "message": "AI Shopkeeper Backend Running"
     }
+from app.api.product import router as product_router
+app.include_router(product_router)
+app.include_router(customer_router)
+app.include_router(sale_router)
+app.include_router(sale_item_router)

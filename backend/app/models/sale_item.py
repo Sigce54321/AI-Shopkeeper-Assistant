@@ -1,7 +1,5 @@
-from sqlalchemy import Column
-from sqlalchemy import Integer
-from sqlalchemy import Float
-from sqlalchemy import ForeignKey
+from sqlalchemy import Column, Integer, Float, ForeignKey
+from sqlalchemy.orm import relationship
 
 from app.database.connection import Base
 
@@ -25,4 +23,8 @@ class SaleItem(Base):
 
     quantity = Column(Integer, nullable=False)
 
-    unit_price = Column(Float, nullable=False)
+    price = Column(Float, nullable=False)
+
+    # optional relationships (recommended for future use)
+    sale = relationship("Sale")
+    product = relationship("Product")

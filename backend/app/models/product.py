@@ -11,10 +11,12 @@ class Product(Base):
 
     id = Column(Integer, primary_key=True, index=True)
 
-    name = Column(String)
+    name = Column(String, nullable=False)
 
-    price = Column(Float)
+    barcode = Column(String, unique=True)
 
-    stock = Column(Integer)
+    selling_price = Column(Float)
 
-    category = Column(String)
+    cost_price = Column(Float)
+
+    stock_quantity = Column(Integer)
