@@ -26,3 +26,9 @@ app.include_router(product_router)
 app.include_router(customer_router)
 app.include_router(sale_router)
 app.include_router(sale_item_router)
+from app.api.checkout import router as checkout_router
+app.include_router(
+    checkout_router,
+    prefix="/sale",
+    tags=["Checkout"]
+)

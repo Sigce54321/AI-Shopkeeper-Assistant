@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
@@ -26,3 +27,5 @@ def get_db():
         yield db
     finally:
         db.close()
+        import os
+print("REAL DB:", os.path.abspath("shop.db"))

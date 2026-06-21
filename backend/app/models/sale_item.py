@@ -9,22 +9,26 @@ class SaleItem(Base):
 
     id = Column(Integer, primary_key=True, index=True)
 
+    # 🔗 Link to Sale
     sale_id = Column(
         Integer,
         ForeignKey("sales.id"),
         nullable=False
     )
 
+    # 🔗 Link to Product
     product_id = Column(
         Integer,
         ForeignKey("products.id"),
         nullable=False
     )
 
+    # 📦 Quantity purchased
     quantity = Column(Integer, nullable=False)
 
+    # 💰 Price per unit at time of sale
     price = Column(Float, nullable=False)
 
-    # optional relationships (recommended for future use)
-    sale = relationship("Sale")
+    # 🔗 Relationships (for joins and invoice generation)
+    sale = relationship("Sale", back_populates="items")
     product = relationship("Product")
