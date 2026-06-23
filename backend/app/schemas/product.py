@@ -14,4 +14,4 @@ class ProductResponse(ProductCreate):
 
     class Config:
         from_attributes = True
-       
+        

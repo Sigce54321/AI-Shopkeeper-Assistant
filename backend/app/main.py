@@ -1,3 +1,4 @@
+from fastapi.middleware.cors import CORSMiddleware
 from app.api.customer import router as customer_router
 from app.api.sale import router as sale_router
 from app.api.sale_item import router as sale_item_router
@@ -12,9 +13,28 @@ from app.models import Sale
 from app.models import SaleItem
 
 app = FastAPI()
+origins = [
+    "http://localhost:5173",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 Base.metadata.create_all(bind=engine)
 
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def home():
